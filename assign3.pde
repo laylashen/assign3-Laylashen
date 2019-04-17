@@ -7,8 +7,16 @@ final int START_BUTTON_H = 60;
 final int START_BUTTON_X = 248;
 final int START_BUTTON_Y = 360;
 
+int x,y;
+int soilX=80;
+int soilY=80;
+
+int life=2;
+
 PImage title, gameover, startNormal, startHovered, restartNormal, restartHovered;
-PImage bg, soil8x24;
+PImage bg;
+PImage heart;
+PImage [] soil = new PImage[6];
 
 // For debug function; DO NOT edit or remove this!
 int playerHealth = 0;
@@ -25,7 +33,13 @@ void setup() {
 	startHovered = loadImage("img/startHovered.png");
 	restartNormal = loadImage("img/restartNormal.png");
 	restartHovered = loadImage("img/restartHovered.png");
-	soil8x24 = loadImage("img/soil8x24.png");
+  soil[0] = loadImage("img/soil0.png"); 
+  soil[1] = loadImage("img/soil1.png"); 
+  soil[2] = loadImage("img/soil2.png"); 
+  soil[3] = loadImage("img/soil3.png"); 
+  soil[4] = loadImage("img/soil4.png"); 
+  soil[5] = loadImage("img/soil5.png");
+  heart = loadImage("img/life.png");
 }
 
 void draw() {
@@ -82,11 +96,28 @@ void draw() {
 		rect(0, 160 - GRASS_HEIGHT, width, GRASS_HEIGHT);
 
 		// Soil - REPLACE THIS PART WITH YOUR LOOP CODE!
-		image(soil8x24, 0, 160);
+    int soilRestrict=soilY*2;
+    for(int i = 0; i < soil.length; i++){
+      for(int x=0; x<width ; x+=soilX){
+        for(int y=soilRestrict; y<soilRestrict+soilY*4; y+=soilY ){
+              image(soil[i],x,y);
+        }
+        //soilRestrict+=soilY*4;
+      }
+      soilRestrict+=soilY*4;
+    }
 
 		// Player
 
 		// Health UI
+    int heartX=35;
+    int heartY=35;
+    int heartMove=70;
+    for(int i=0;i<5;i++){
+      imageMode(CENTER);
+      image(heart,heartX+i*heartMove,heartY);
+    }
+    imageMode(CORNER);
 
 		break;
 
